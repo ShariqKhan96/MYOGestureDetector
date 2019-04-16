@@ -26,6 +26,7 @@ import com.thalmic.myo.Myo;
 import com.thalmic.myo.Pose;
 import com.thalmic.myo.Arm;
 import com.thalmic.myo.Quaternion;
+import com.thalmic.myo.Vector3;
 import com.thalmic.myo.XDirection;
 import com.thalmic.myo.scanner.ScanActivity;
 
@@ -36,13 +37,32 @@ public class text extends AppCompatActivity {
 
     // Classes that inherit from AbstractDeviceListener can be used to receive events from Myo devices.
     // If you do not override an event, the default behavior is to do nothing.
+
+
     private DeviceListener mListener = new AbstractDeviceListener() {
+
+
 
         // onConnect() is called whenever a Myo has been connected.
         @Override
         public void onConnect(Myo myo, long timestamp) {
             // Set the text color of the text view to cyan when a Myo connects.
             mTextView.setTextColor(Color.CYAN);
+        }
+
+        @Override
+        public void onRssi(Myo myo, long timestamp, int rssi) {
+            Log.e("onRssi :", rssi + "");
+        }
+
+        @Override
+        public void onGyroscopeData(Myo myo, long timestamp, Vector3 gyro) {
+            Log.e("onGyroscopeData :", gyro.x() + " " + gyro.y() + " " + gyro.z());
+        }
+
+        @Override
+        public void onAccelerometerData(Myo myo, long timestamp, Vector3 accel) {
+            Log.e("onAccelerometerData :", accel.x() + " " + accel.y() + " " + accel.z());
         }
 
         // onDisconnect() is called whenever a Myo has been disconnected.
